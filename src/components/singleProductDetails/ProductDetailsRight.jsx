@@ -309,6 +309,8 @@ const ProductDetailsRight = (props) => {
                             type="checkbox"
                             name="terms-and-conditions"
                             id="flexCheckDefault"
+                            // checkd the checkbox when the [isCheck] is true
+                            checked={isCheck && true}
                             onChange={handleCheck}
                         />
                         <label className="form-check-label" htmlFor="flexCheckDefault">

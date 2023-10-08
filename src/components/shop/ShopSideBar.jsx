@@ -1,5 +1,4 @@
 import { useEffect } from "react";
-import { AllProductsItems } from "../../config/data";
 import ShopSideBarSmall from "./ShopSideBarSmall";
 
 /*======================================*/
@@ -7,40 +6,33 @@ import ShopSideBarSmall from "./ShopSideBarSmall";
 /*======================================*/
 
 const ShopSideBar = (props) => {
+
     const {
-        products,
-        setProducts,
-        price,
-        setPrice,
-        handlePriceInput,
-        getSingleCategory,
+        updateFilter,
+        categoryList,
+        categoryQuery,
+        brandList,
+        brandQuery,
+        priceQuery,
         min,
         max,
         showSmallSideBar,
-        handleCloseShowSmallSideBar } = props;
+        handleCloseShowSmallSideBar
+    } = props;
 
     useEffect(() => {
 
-        //by default make the products sorting by it id
-        setProducts([...products.sort((a, b) => { return a.pId - b.pId })]);
+        // //by default make the products sorting by it id
+        // setProducts([...products.sort((a, b) => { return a.pId - b.pId })]);
 
-        // by default show all products when open shop page
-        setPrice(max)
+        // // by default show all products when open shop page
+        // setPrice(max)
 
-    }, []);
+    }, [max]);
 
-    /*
-     - get all [unique product brand] ,in order to draw the input radio ui
-     - get all [unique product categroy] ,in order to draw input radio ui
-     note:not using [products] just use the [the main array (AllProductsItems)]
-    to avoid the category or brand sort with when sort the price
-    */
-    const brandList = [...new Set(AllProductsItems.map(item => item.pBrand))];
-
-    const categoryList = [...new Set(AllProductsItems.map(item => item.pCategory))];
 
     // get the percentage value,in order to fill the bg color of input range slider daynamicly based percentage
-    let percentage = (price - min) * 100 / (max - min);
+    let percentage = (priceQuery - min) * 100 / (max - min);
 
     const sliderStyle = {
 
@@ -56,65 +48,132 @@ const ShopSideBar = (props) => {
                     <div className="form-cat-filters">
                         <div className="cat-filter-box">
                             <h3 className='underline-heading'>Categories</h3>
+                            {/* the main input that contain ALL CATEGORIES */}
                             <div className="cat-filter-single">
                                 <input
                                     type="radio"
                                     className="form-check-input"
                                     name="categories"
-                                    id='all-cat'
-                                    defaultChecked
+                                    id='all'
+                                    value='all'
+                                    onChange={(e) =>
+                                        updateFilter("category", e.target.value)
+                                    }
+                                    defaultChecked={
+                                        categoryQuery === 'all'
+                                            ? true
+                                            : false}
                                 />
-                                <label htmlFor="all-cat" className='main-cat-label'>All Categories</label>
+                                <label
+                                    htmlFor="all"
+                                    className={categoryQuery === "all" ? "main-cat-label" : ""}
+                                >
+                                    All Categories
+                                </label>
                             </div>
-                            {categoryList.map((item, i) => (
-                                <div className="cat-filter-single" key={i}>
-                                    <input
-                                        type="radio"
-                                        className="form-check-input"
-                                        name="categories"
-                                        id={item}
-                                        defaultChecked={getSingleCategory && getSingleCategory === item ? true : false}
-                                    />
-                                    <label htmlFor={item}>{item}</label>
-                                </div>
-                            ))}
+
+                            {/* draw the others inputs dynamically */}
+                            {
+                                categoryList.map((inp, idx) => (
+                                    <div className="cat-filter-single" key={idx}>
+                                        <input
+                                            type="radio"
+                                            className="form-check-input"
+                                            name="categories"
+                                            id={inp}
+                                            value={inp}
+                                            onChange={(e) =>
+                                                updateFilter("category", e.target.value)
+                                            }
+                                            defaultChecked={
+                                                categoryQuery === inp
+                                                    ? true
+                                                    : false}
+                                        />
+                                        <label
+                                            htmlFor={inp}
+                                            className={categoryQuery === inp ? "main-cat-label" : ""}
+                                        >
+                                            {inp}
+                                        </label>
+                                    </div>
+                                ))}
                         </div>
                         {/* end cat filter box */}
 
+                        {/* ===================================== */}
+
                         <div className="brands-filter-box">
                             <h3 className='underline-heading'>Brands</h3>
+                            {/* the main input that contain ALL BRAND */}
                             <div className="cat-filter-single">
                                 <input
                                     type="radio"
                                     className="form-check-input"
                                     name="brands"
-                                    id='all-brands'
-                                    defaultChecked
+                                    id='allBrand'
+                                    value='all'
+                                    onChange={(e) =>
+                                        updateFilter("brand", e.target.value)
+                                    }
+                                    defaultChecked={
+                                        brandQuery === 'all'
+                                            ? true
+                                            : false}
                                 />
-                                <label htmlFor="all-brands" className='main-cat-label'>All Brands</label>
+                                <label
+                                    htmlFor="allBrand"
+                                    className={brandQuery === "all" ? "main-cat-label" : ""}
+                                >
+                                    All Brands
+                                </label>
                             </div>
-                            {brandList.map((item, i) => (
-                                <div className="cat-filter-single" key={i}>
-                                    <input type="radio" className="form-check-input" name="brands" id={item} />
-                                    <label htmlFor={item}>{item}</label>
-                                </div>
-                            ))}
+
+                            {/* draw the others inputs dynamically */}
+                            {
+                                brandList.map((inp, idx) => (
+                                    <div className="cat-filter-single" key={idx}>
+                                        <input
+                                            type="radio"
+                                            className="form-check-input"
+                                            name="brands"
+                                            id={inp}
+                                            value={inp}
+                                            onChange={(e) =>
+                                                updateFilter("brand", e.target.value)
+                                            }
+                                            defaultChecked={
+                                                brandQuery === inp
+                                                    ? true
+                                                    : false}
+                                        />
+                                        <label
+                                            htmlFor={inp}
+                                            className={brandQuery === inp ? "main-cat-label" : ""}
+                                        >
+                                            {inp}
+                                        </label>
+                                    </div>
+                                ))}
                         </div>
-                        {/* end brands filter bod*/}
+                        {/* end brands filter*/}
+
+                        {/* ===================================== */}
 
                         <div className="brands-filter-box">
                             <h3 className='underline-heading'>Price</h3>
                             <input
                                 type="range"
-                                defaultValue={max}
-                                onChange={handlePriceInput}
+                                value={priceQuery == 0 ? max : priceQuery}
+                                onChange={(e) => updateFilter("price", e.target.value)}
                                 min={min}
                                 max={max}
+                                step="40"
                                 style={sliderStyle}
                             />
                             <div className="range-price-value">
                                 <span>{min}$</span>
-                                <span>{price}$</span>
+                                <span>{priceQuery == 0 ? max : priceQuery}$</span>
                                 <span>{max}$</span>
                             </div>
                         </div>
@@ -126,18 +185,16 @@ const ShopSideBar = (props) => {
 
             {/* this samll sidebar it will show when resize the window */}
             <ShopSideBarSmall
-                products={products}
-                setProducts={setProducts}
-                price={price}
-                setPrice={setPrice}
-                handlePriceInput={handlePriceInput}
-                min={min}
-                max={max}
                 showSmallSideBar={showSmallSideBar}
                 handleCloseShowSmallSideBar={handleCloseShowSmallSideBar}
-                brandList={brandList}
+                updateFilter={updateFilter}
                 categoryList={categoryList}
-                percentage={percentage}
+                categoryQuery={categoryQuery}
+                brandList={brandList}
+                brandQuery={brandQuery}
+                priceQuery={priceQuery}
+                min={min}
+                max={max}
                 sliderStyle={sliderStyle}
             />
         </>

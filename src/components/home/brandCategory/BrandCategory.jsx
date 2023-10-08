@@ -19,7 +19,12 @@ const BrandCategory = () => {
                         <div className="box-desc">
                             <strong>MID-SEASON</strong>
                             <h3>Eco-Friendly</h3>
-                            <Link to="/shop" className='shop-now'>Shop Now <LiaArrowRightSolid /></Link>
+                            <Link
+                                to={"/shop?category=all&brand=all&sortBy=default&price=0&page=1"}
+                                className='shop-now'
+                            >
+                                Shop Now <LiaArrowRightSolid />
+                            </Link>
                         </div>
                     </div>
                     <div className="right">
@@ -27,7 +32,12 @@ const BrandCategory = () => {
                         <div className="box-desc">
                             <strong>TOP TRENDING</strong>
                             <h3>Outdoor</h3>
-                            <Link to="/shop" className='shop-now'>Shop Now <LiaArrowRightSolid /></Link>
+                            <Link
+                                to={"/shop?category=all&brand=all&sortBy=default&price=0&page=1"}
+                                className='shop-now'
+                            >
+                                Shop Now <LiaArrowRightSolid />
+                            </Link>
                         </div>
                     </div>
                 </div>

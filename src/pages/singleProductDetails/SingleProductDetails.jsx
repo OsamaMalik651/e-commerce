@@ -77,6 +77,10 @@ const SingleProductDetails = () => {
         and changed it everytime the [id param] will changed
         */
         itemsEls.current[0].click();
+
+        // change the [isCheck] as well when the [id] CHANGED
+        setIsCheck(false);
+
     }, [id])
 
     /*==================================================*/

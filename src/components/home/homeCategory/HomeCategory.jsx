@@ -24,6 +24,16 @@ const HomeCategory = () => {
 
     }
 
+
+    // get single category 
+    function getSingleCategory(ele) {
+
+        const categoryName = AllProductsItems.find((category) => category.pCategory === ele).pCategory;
+
+        return categoryName;
+
+    }
+
     return (
         <div className='home-category'>
             <Container>
@@ -32,13 +42,24 @@ const HomeCategory = () => {
                         <img src={Chairs} alt="" />
                         <div className="box-desc">
                             <strong>
-                                {/* put the name of product like [chairs] for example */}
+                                {/* put the length of product like [chairs] for example */}
                                 {filterEleLength("chairs")}
                                 {/* put the length of this product,if leng equal 1 display product otherwise display productssss */}
-                                {filterEleLength("chairs") === 1 ? "product" : "products"}
+                                {filterEleLength("chairs") === 1 ? " product" : " products"}
                             </strong>
-                            <h3><Link to="/shop/chairs">Chairs</Link></h3>
-                            <Link to="/shop/chairs" className='shop-now'>Go Shopping<LiaArrowRightSolid /></Link>
+                            <h3>
+                                <Link
+                                    to={`shop?category=${getSingleCategory("chairs")}&brand=all&sortBy=default&price=0&page=1`}
+                                >
+                                    Chairs
+                                </Link>
+                            </h3>
+                            <Link
+                                to={`shop?category=${getSingleCategory("chairs")}&brand=all&sortBy=default&price=0&page=1`}
+                                className='shop-now'
+                            >
+                                Go Shopping<LiaArrowRightSolid />
+                            </Link>
                         </div>
                     </div>
                     {/* end left */}
@@ -50,10 +71,21 @@ const HomeCategory = () => {
                                 <div className="box-desc">
                                     <strong>
                                         {filterEleLength("lighting")}
-                                        {filterEleLength("lighting") === 1 ? "product" : "products"}
+                                        {filterEleLength("lighting") === 1 ? " product" : " products"}
                                     </strong>
-                                    <h3><Link to="/shop/lighting">Lighting</Link></h3>
-                                    <Link to="/shop/lighting" className='shop-now'>Go Shopping<LiaArrowRightSolid /></Link>
+                                    <h3>
+                                        <Link
+                                            to={`shop?category=${getSingleCategory("lighting")}&brand=all&sortBy=default&price=0&page=1`}
+                                        >
+                                            Lighting
+                                        </Link>
+                                    </h3>
+                                    <Link
+                                        to={`shop?category=${getSingleCategory("lighting")}&brand=all&sortBy=default&price=0&page=1`}
+                                        className='shop-now'
+                                    >
+                                        Go Shopping<LiaArrowRightSolid />
+                                    </Link>
                                 </div>
                             </div>
                             <div className="right">
@@ -61,10 +93,21 @@ const HomeCategory = () => {
                                 <div className="box-desc">
                                     <strong>
                                         {filterEleLength("decor")}
-                                        {filterEleLength("decor") === 1 ? "product" : "products"}
+                                        {filterEleLength("decor") === 1 ? " product" : " products"}
                                     </strong>
-                                    <h3><Link to="/shop/decor">Decor</Link></h3>
-                                    <Link to="/shop/decor" className='shop-now'>Go Shopping<LiaArrowRightSolid /></Link>
+                                    <h3>
+                                        <Link
+                                            to={`shop?category=${getSingleCategory("decor")}&brand=all&sortBy=default&price=0&page=1`}
+                                        >
+                                            Decor
+                                        </Link>
+                                    </h3>
+                                    <Link
+                                        to={`shop?category=${getSingleCategory("decor")}&brand=all&sortBy=default&price=0&page=1`}
+                                        className='shop-now'
+                                    >
+                                        Go Shopping<LiaArrowRightSolid />
+                                    </Link>
                                 </div>
                             </div>
                         </div>
@@ -75,10 +118,21 @@ const HomeCategory = () => {
                                 <div className="box-desc">
                                     <strong>
                                         {filterEleLength("sofas")}
-                                        {filterEleLength("sofas") === 1 ? "product" : "products"}
+                                        {filterEleLength("sofas") === 1 ? " product" : " products"}
                                     </strong>
-                                    <h3><Link to="/shop/sofas">Sofas</Link></h3>
-                                    <Link to="/shop/sofas" className='shop-now'>Go Shopping<LiaArrowRightSolid /></Link>
+                                    <h3>
+                                        <Link
+                                            to={`shop?category=${getSingleCategory("sofas")}&brand=all&sortBy=default&price=0&page=1`}
+                                        >
+                                            Sofas
+                                        </Link>
+                                    </h3>
+                                    <Link
+                                        to={`shop?category=${getSingleCategory("sofas")}&brand=all&sortBy=default&price=0&page=1`}
+                                        className='shop-now'
+                                    >
+                                        Go Shopping<LiaArrowRightSolid />
+                                    </Link>
                                 </div>
                             </div>
                             <div className="right">
@@ -86,10 +140,21 @@ const HomeCategory = () => {
                                 <div className="box-desc">
                                     <strong>
                                         {filterEleLength("tables")}
-                                        {filterEleLength("tables") === 1 ? "product" : "products"}
+                                        {filterEleLength("tables") === 1 ? " product" : " products"}
                                     </strong>
-                                    <h3><Link to="/shop/tables">Tables</Link></h3>
-                                    <Link to="/shop/tables" className='shop-now'>Go Shopping<LiaArrowRightSolid /></Link>
+                                    <h3>
+                                        <Link
+                                            to={`shop?category=${getSingleCategory("tables")}&brand=all&sortBy=default&price=0&page=1`}
+                                        >
+                                            Tables
+                                        </Link>
+                                    </h3>
+                                    <Link
+                                        to={`shop?category=${getSingleCategory("tables")}&brand=all&sortBy=default&price=0&page=1`}
+                                        className='shop-now'
+                                    >
+                                        Go Shopping<LiaArrowRightSolid />
+                                    </Link>
                                 </div>
                             </div>
                         </div>

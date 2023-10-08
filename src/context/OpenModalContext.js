@@ -1,5 +1,5 @@
-import { useEffect } from "react";
-import { createContext, useState } from "react";
+import { createContext, useState, useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
 
 /*======================================*/
 /*======================================*/
@@ -8,6 +8,19 @@ import { createContext, useState } from "react";
 export const OpenModalContext = createContext();
 
 export const OpenModalContextProvider = ({ children }) => {
+
+    // search params  
+    const [searchParams, setSearchParams] = useSearchParams();
+
+    const categoryQuery = searchParams.get("category");
+
+    const brandQuery = searchParams.get("brand");
+
+    const selectQuery = searchParams.get("sortBy");
+
+    const priceQuery = searchParams.get("price");
+
+    /*-------------------------------*/
 
     // for cart modal
     const [showCartModal, setShowCartModal] = useState(false);
@@ -74,7 +87,13 @@ export const OpenModalContextProvider = ({ children }) => {
             openProductSlider,
             setOpenProductSlider,
             handleOpenSlider,
-            handleCloseSlider
+            handleCloseSlider,
+            searchParams,
+            setSearchParams,
+            categoryQuery,
+            selectQuery,
+            brandQuery,
+            priceQuery
         }}
         >
             {children}
