@@ -20,9 +20,9 @@ const AllShopProducts = ({
     currentPage,
     setCurrentPage,
     activePagination,
-    setActivePagination,renderedProducts,
+    setActivePagination, renderedProducts,
     pages,
-    orderedProducts,arrayToRender,filteredProductsArray }) => {
+    orderedProducts, arrayToRender, filteredProductsArray }) => {
 
 
 
@@ -66,7 +66,33 @@ const AllShopProducts = ({
 
             </div>
             <div className="all-shop-products-box">
-            {renderedProducts}
+                {/* {renderedProducts} */}
+
+                {/* for now we just filter the categories */}
+                {params.category !== "all"
+                    ? products
+                        .filter(p =>
+
+                            p.pCategory === params.category
+
+                            //&& p.pBrand === params.brand
+
+                            //&& p.pPrice >= min && p.pPrice <= Number(priceQuery)  
+
+                        ).map((d, i) => (
+                            <SingleProductUi data={d} key={i} />
+                        ))
+
+                    :
+                    AllProductsItems.map((d, i) => (
+                        <SingleProductUi data={d} key={i} />
+                    ))
+                }
+
+
+                {/* ===================================== */}
+                {/* ===================================== */}
+                {/* ===================================== */}
 
                 {/* put the pagination NOT in parent comp , in order to keep the style */}
                 {/* <Pagination
