@@ -2,7 +2,7 @@ import './brandSlider.css';
 import Container from '../../../helpers/container/Container';
 import '../../../helpers/slickSliderStyle.css';
 import { LiaAngleRightSolid, LiaAngleLeftSolid } from "react-icons/lia";
-import { brandSliderImg } from "../../../../config/data";
+import { brandSliderImg } from "../../../../config/brandSliderImg";
 import SingleBrandSlider from '../SingleBrandSlider';
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";

@@ -33,25 +33,6 @@ const Shop = () => {
 
   /*=========================*/
 
-  // this for pagination
-  const [currentPage, setCurrentPage] = useState(1);
-
-  const [activePagination, setActivePagination] = useState(1);
-
-  const PRODUCT_PER_PAGE = 3;
-
-  const pages = Math.ceil(products.length / PRODUCT_PER_PAGE);
-
-  const startIndex = (currentPage - 1) * PRODUCT_PER_PAGE;
-
-  const finishIndex = currentPage * PRODUCT_PER_PAGE;
-
-  const orderedProducts = products.slice(startIndex, finishIndex);
-
-  /*==========================================================================*/
-  /*==========================================================================*/
-  /*==========================================================================*/
-
   // show the smaller sidebar in SMALL SCREEN
   const handleShowSmallSideBar = () => {
 
@@ -89,7 +70,9 @@ const Shop = () => {
 
   // const params = Object.fromEntries([...searchParams]);
 
-  /*=========================*/
+  /*==========================================================================*/
+  /*=====================  FTILTERD ALL PRODUCTS START  ======================*/
+  /*==========================================================================*/
 
   const params = {
     category: searchParams.get("category"),
@@ -109,13 +92,9 @@ const Shop = () => {
 
   // filteredProductsArray
   const filteredProductsArray = AllProductsItems.filter((product) => {
-
     var isMatch = [];
-
     for (var key in params1) {
-
       if (key !== "sortBy") {
-
         if (
           params1[key] === product[key] ||
           parseFloat(product["pPrice"]) <= parseFloat(params1[key])
@@ -126,20 +105,25 @@ const Shop = () => {
         }
       }
     }
-
     if (isMatch.every((value) => value === true)) {
-      isMatch = [];
-
+      // isMatch = [];
+      // console.log(params1)
       return product;
     } else { return null; }
-
-
   });
-
+  // end filteredProductsArray
 
   // sortProducts
   const sortProducts = (params, filteredProductsArray) => {
     const sortParameter = params["sortBy"];
+    if (sortParameter === "default") {
+      return filteredProductsArray.sort(function (a, b) {
+        let aId = parseFloat(a.pId);
+        let bId = parseFloat(b.pId);
+        return aId - bId;
+      });
+    }
+
     if (sortParameter === "lowToHigh") {
       return filteredProductsArray.sort(function (a, b) {
         let aPrice = parseFloat(a.pPrice);
@@ -147,6 +131,7 @@ const Shop = () => {
         return aPrice > bPrice ? 1 : -1;
       });
     }
+
     if (sortParameter === "highToLow") {
       return filteredProductsArray.sort(function (a, b) {
         let aPrice = parseFloat(a.pPrice);
@@ -155,7 +140,7 @@ const Shop = () => {
       });
     }
   };
-
+  // end sortProducts
 
   const arrayToRender =
     "sortBy" in params
@@ -164,14 +149,31 @@ const Shop = () => {
 
   /*=========================*/
 
-  const renderedProducts = filteredProductsArray?.map((d, i) => {
+  // pagination JUST FOR filterd all products
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const [activePagination, setActivePagination] = useState(1);
+
+  const PRODUCT_PER_PAGE = 1;
+
+  const pages = Math.ceil(filteredProductsArray.length / PRODUCT_PER_PAGE);
+
+  const startIndex = (currentPage - 1) * PRODUCT_PER_PAGE;
+
+  const finishIndex = currentPage * PRODUCT_PER_PAGE;
+
+  const orderedProducts = filteredProductsArray.slice(startIndex, finishIndex);
+
+  // draw all filterd products
+  const renderedProducts = orderedProducts?.map((d, i) => {
     return (
       <SingleProductUi data={d} key={i} />
     );
   });
 
-  /*=========================*/
-  /*=========================*/
+  /*==========================================================================*/
+  /*=====================  FTILTERD ALL PRODUCTS END  ======================*/
+  /*==========================================================================*/
 
   return (
     <div className='shop'>

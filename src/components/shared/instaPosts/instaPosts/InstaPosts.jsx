@@ -3,7 +3,7 @@ import Container from '../../../helpers/container/Container';
 import '../../../helpers/slickSliderStyle.css';
 import { Link } from 'react-router-dom';
 import { LiaAngleRightSolid, LiaAngleLeftSolid } from "react-icons/lia";
-import { instaPostsImgs } from "../../../../config/data"
+import { instaPostsImgs } from "../../../../config/instaPostsImgs"
 import InstaSingleImg from '../InstaSingleImg';
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";

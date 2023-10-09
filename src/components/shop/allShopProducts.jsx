@@ -30,9 +30,10 @@ const AllShopProducts = ({
         <div className="left">
             <div className="top-part">
                 {
-                    products.length > 0
+                    renderedProducts.length > 0
                     &&
                     <>
+                        {/* show the number of page when exist pagination */}
                         <p className="pages-number mb-0">
                             Showing page <span>{currentPage}</span> of <span>{pages}</span> pages
                         </p>
@@ -42,7 +43,7 @@ const AllShopProducts = ({
                 {/* this btn will show the sidebar section in small devices */}
                 <button className="show-sidebar" onClick={handleShowSmallSideBar}><FaFilter /> Filters</button>
                 {
-                    products.length > 0 &&
+                    renderedProducts.length > 0 &&
                     <div className="select-box">
                         <select
                             name=""
@@ -66,44 +67,58 @@ const AllShopProducts = ({
 
             </div>
             <div className="all-shop-products-box">
-                {/* {renderedProducts} */}
 
-                {/* for now we just filter the categories */}
+                {/* just filter the categories */}
+                {/* 
+
                 {params.category !== "all"
                     ? products
                         .filter(p =>
 
                             p.pCategory === params.category
 
-                            //&& p.pBrand === params.brand
+                           // && p.pBrand === params.brand
 
-                            //&& p.pPrice >= min && p.pPrice <= Number(priceQuery)  
+                           // && p.pPrice >= min && p.pPrice <= Number(priceQuery)
 
                         ).map((d, i) => (
                             <SingleProductUi data={d} key={i} />
-                        ))
-
+                        )) 
                     :
                     AllProductsItems.map((d, i) => (
                         <SingleProductUi data={d} key={i} />
-                    ))
+                    )) 
+                } 
+
+                */}
+
+                {/* ===================================== */}
+
+                {
+                    /*
+                    if the filteredproduct array contains some products , 
+                    show the products with pagination ,otherwise show no product match msg
+
+                    NOTE: put the pagination NOT in parent comp , in order to keep the style
+                    */
+                    renderedProducts.length > 0 ?
+                        <>
+                            {renderedProducts}
+
+                            <Pagination
+                                pages={pages}
+                                currentPage={currentPage}
+                                setCurrentPage={setCurrentPage}
+                                updateFilter={updateFilter}
+                                paginationQuery={paginationQuery}
+                                activePagination={activePagination}
+                                setActivePagination={setActivePagination}
+                            />
+                        </>
+                        :
+                        <><h5 className="w-100 text-center">Sorry, no matching products</h5></>
                 }
 
-
-                {/* ===================================== */}
-                {/* ===================================== */}
-                {/* ===================================== */}
-
-                {/* put the pagination NOT in parent comp , in order to keep the style */}
-                {/* <Pagination
-                    pages={pages}
-                    currentPage={currentPage}
-                    setCurrentPage={setCurrentPage}
-                    updateFilter={updateFilter}
-                    paginationQuery={paginationQuery}
-                    activePagination={activePagination}
-                    setActivePagination={setActivePagination}
-                /> */}
 
             </div>
         </div>

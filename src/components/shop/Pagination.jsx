@@ -11,7 +11,7 @@ const Pagination = ({
   setCurrentPage,
   updateFilter,
   paginationQuery,
-  activePagination, 
+  activePagination,
   setActivePagination }) => {
 
   const paginRef = useRef();
@@ -23,20 +23,6 @@ const Pagination = ({
     generatedPages.push(i);
 
   }
-
-  //   useEffect(() => {
-
-  // if(paginRef === paginationQuery){
-  //   paginRef.current.click();
-  // }  
-  // }, [paginationQuery])
-
-  // console.log("paginationQuery : " + paginationQuery);
-  // console.log("currentPage : " + currentPage);
-
-  console.log("paginRef : " + paginRef);
-
-
 
   return (
     <div className="shop-pagination">

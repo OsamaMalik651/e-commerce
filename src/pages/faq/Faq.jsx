@@ -2,7 +2,7 @@ import './faq.css';
 import Container from '../../components/helpers/container/Container';
 import { HashLink } from 'react-router-hash-link';
 import HeaderCover from '../../components/shared/header cover/HeaderCover';
-import { faqData } from "../../config/data";
+import { faqData } from "../../config/faqData";
 import SingleFaqItem from '../../components/faq/SingleFaqItem';
 
 /*======================================*/
