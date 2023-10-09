@@ -81,24 +81,29 @@ const Shop = () => {
     price: searchParams.get("price")
   };
 
+  const isDefaultParams = params.category === 'all' && params.brand === 'all' && params.sortBy === 'default' && params.price === '0';
   const params1 = {};
-
   for (var key in params) {
     key !== "sortBy"
       ? (params1[`p${key.charAt(0).toUpperCase() + key.slice(1)}`] =
         params[key])
       : (params1[key] = params[key]);
   }
-
   // filteredProductsArray
-  const filteredProductsArray = AllProductsItems.filter((product) => {
+  const filteredProductsArray = isDefaultParams ? products : AllProductsItems.filter((product) => {
     var isMatch = [];
     for (var key in params1) {
-      if (key !== "sortBy") {
-        if (
-          params1[key] === product[key] ||
-          parseFloat(product["pPrice"]) <= parseFloat(params1[key])
+      if (key !== "sortBy" && key !== 'pPrice') {
+        if
+          ((params1[key] === product[key] || params1[key] === 'all')
         ) {
+          isMatch.push(true);
+        } else {
+          isMatch.push(false);
+        }
+      }
+      if (key === 'pPrice') {
+        if ((parseFloat(product["pPrice"]) <= parseFloat(params1[key])) || params1.pPrice === '0') {
           isMatch.push(true);
         } else {
           isMatch.push(false);
@@ -106,8 +111,6 @@ const Shop = () => {
       }
     }
     if (isMatch.every((value) => value === true)) {
-      // isMatch = [];
-      // console.log(params1)
       return product;
     } else { return null; }
   });
@@ -120,7 +123,7 @@ const Shop = () => {
       return filteredProductsArray.sort(function (a, b) {
         let aId = parseFloat(a.pId);
         let bId = parseFloat(b.pId);
-        return aId - bId;
+        return 0;
       });
     }
 
@@ -142,11 +145,9 @@ const Shop = () => {
   };
   // end sortProducts
 
-  const arrayToRender =
-    "sortBy" in params
-      ? sortProducts(params1, filteredProductsArray)
-      : filteredProductsArray;
-
+  const arrayToRender = "sortBy" in params
+    ? sortProducts(params1, filteredProductsArray)
+    : filteredProductsArray;
   /*=========================*/
 
   // pagination JUST FOR filterd all products
@@ -154,15 +155,17 @@ const Shop = () => {
 
   const [activePagination, setActivePagination] = useState(1);
 
-  const PRODUCT_PER_PAGE = 1;
+  const PRODUCT_PER_PAGE = 6;
 
-  const pages = Math.ceil(filteredProductsArray.length / PRODUCT_PER_PAGE);
+  // const pages = Math.ceil(filteredProductsArray.length / PRODUCT_PER_PAGE);
+  const pages = Math.ceil(arrayToRender.length / PRODUCT_PER_PAGE);
+
 
   const startIndex = (currentPage - 1) * PRODUCT_PER_PAGE;
 
   const finishIndex = currentPage * PRODUCT_PER_PAGE;
 
-  const orderedProducts = filteredProductsArray.slice(startIndex, finishIndex);
+  const orderedProducts = arrayToRender.slice(startIndex, finishIndex);
 
   // draw all filterd products
   const renderedProducts = orderedProducts?.map((d, i) => {
